@@ -1,0 +1,28 @@
+{
+  "completed_utc": "2026-11-03T10:10:04.695964+00:00",
+  "n_test": 119811,
+  "selected_model": "tree_depth_8",
+  "bootstrap_repetitions": 500,
+  "selection_sha256": "768c5f29d1ba006fd5ac0fcf670b4c7250255093e1ee26036ecb48b9ab511c12",
+  "predictions_sha256": "fa13c47ba120a96c1e62daca4257765262e66a69ce2bca6f46ee640301cfb05e",
+  "data_sha256": "9f6fadc8308f30f194e9980a170aceadb9e2114e50c1d5d0b574ab82a07c5af0",
+  "model_sha256": "94a8feaa3db92f1467a26c5339853337f4cd19e0320ebd717e98ed2c99fd42ce",
+  "result": {
+    "model": "selected",
+    "n": 119811,
+    "positives": 70035,
+    "positive_rate": 0.5845456594135764,
+    "average_precision": 0.7474313080285334,
+    "precision": 0.7136940146361354,
+    "recall": 0.9496965802812879,
+    "lift_at_20pct": 1.3278681693412828,
+    "brier": 0.18210684852724562,
+    "threshold": 0.32,
+    "predicted_positive_rate": 0.777841767450401,
+    "tp": 66512,
+    "fp": 26682,
+    "fn": 3523,
+    "tn": 23094,
+    "cost_per_trip": 0.281510044987522
+  }
+}

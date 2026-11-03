@@ -1,0 +1,54 @@
+{
+  "created_utc": "2026-11-03T10:08:57.698187+00:00",
+  "seed": 2026,
+  "selected_model": "tree_depth_8",
+  "feature_groups": [
+    "fare",
+    "geography",
+    "fees"
+  ],
+  "threshold": 0.32,
+  "selection_metric": "June average precision (non-interpolated PR AUC)",
+  "feature_selection": "greedy fixed-order additions; retain >=0.001 June AP gain",
+  "false_positive_cost": 1.0,
+  "false_negative_cost": 2.0,
+  "training_prevalence": 0.5616670257625658,
+  "fare_rule": {
+    "band": "0\u201310",
+    "rates": {
+      "0\u201310": 0.7614142610666186,
+      "10\u201320": 0.6562425589332487,
+      "20\u201340": 0.2509981167608286,
+      "40\u201380": 0.26821065504853625,
+      "80+": 0.1636197440585009
+    }
+  },
+  "rule_threshold": 0.7614142610666186,
+  "depth2_threshold": 0.39,
+  "n_train_raw": 199999,
+  "n_validation_raw": 200001,
+  "n_train": 129956,
+  "n_validation": 123162,
+  "data_sha256": "9f6fadc8308f30f194e9980a170aceadb9e2114e50c1d5d0b574ab82a07c5af0",
+  "zones_sha256": "1a99e105092230f8620f301edcca7f80d3080642ff404d28ed957d3fa222c8ed",
+  "model_sha256": "94a8feaa3db92f1467a26c5339853337f4cd19e0320ebd717e98ed2c99fd42ce",
+  "depth2_sha256": "84af892a60fea48a044ffa5783e505c41ad6e8e615e886f0f5bcd46ef5c799d6",
+  "python": "3.11.9",
+  "sklearn": "1.8.0",
+  "source_hashes": {
+    "src/taxi_tip/__init__.py": "cde2d31c50c556cf302020b386c046bb2c66d47d6f30cb8b5b35357ca110ebb8",
+    "src/taxi_tip/cli.py": "346315e23c5522856e13c971d17ec4f5e49f08c32e2e22bd0ab21ecf50dbede1",
+    "src/taxi_tip/config.py": "0a9a7ae1734126690b41635a5e7abfcb671c935fe872f33a94686400bfab624b",
+    "src/taxi_tip/data.py": "597461cd08e28ca54ef50883771ba0bb40a4a720b399c267fdd0d6b6435b9e48",
+    "src/taxi_tip/evaluation.py": "1fecb339534b270e351cb2e489e83414e3a6354982e387face406d12e6297e50",
+    "src/taxi_tip/models.py": "390b6dbd77d7c1718480a55f95246c997eaffd78681da11abe7dac5123f1590f",
+    "src/taxi_tip/plots.py": "c1793997e283a43598b3b2272f3cc0f08ec3144ebb0327cd38bb73a75a516c63",
+    "src/taxi_tip/reporting.py": "2cc3e9759f69d996bf3ee56ad7e05e0170a3e54495c827bc312c1e9a85af1103",
+    "src/taxi_tip/workflow.py": "8966bbed8a6fa8deaf4e876ebe70b27019cf04eef16aeff38b7b394dc9e91ca8"
+  },
+  "interpretation": {
+    "family": "DecisionTreeClassifier",
+    "depth": 8,
+    "leaves": 94
+  }
+}

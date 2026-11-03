@@ -19,19 +19,19 @@ theme:
     - navigation.top
     - content.code.copy
 nav:
-  The study: index.md
-  Method:
+  - The study: index.md
+  - Method:
     - Problem & decisions: problem.md
     - Data & cleaning: data.md
     - Features & models: features.md
-  Results:
+  - Results:
     - Evaluation: evaluation.md
     - Model card: model-card.md
-  Reproduce:
+  - Reproduce:
     - Run the project: reproduce.md
     - Requirements: requirements.md
     - Sources: sources.md
-  Defend:
+  - Defend:
     - Fifteen-minute presentation: presentation.md
     - Peer review: peer-review.md
 plugins:

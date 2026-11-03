@@ -1,0 +1,9 @@
+addition,groups_tested,june_ap,delta_ap,retained,reason
+fare,fare,0.7478902529986804,0.0,True,predeclared starting feature
+journey,"fare, journey",0.7459882541426573,-0.001901998856023046,False,gain below 0.001 AP
+calendar,"fare, calendar",0.7470945556443711,-0.0007956973543092882,False,gain below 0.001 AP
+geography,"fare, geography",0.7532308375830659,0.005340584584385466,True,gain >= 0.001 AP
+passengers,"fare, geography, passengers",0.7530755465153678,-0.00015529106769807122,False,gain below 0.001 AP
+rate,"fare, geography, rate",0.7528167397581951,-0.00041409782487078495,False,gain below 0.001 AP
+fees,"fare, geography, fees",0.7616927314629887,0.0084618938799228,True,gain >= 0.001 AP
+quality,"fare, geography, fees, quality",0.7619972072939041,0.0003044758309154183,False,gain below 0.001 AP

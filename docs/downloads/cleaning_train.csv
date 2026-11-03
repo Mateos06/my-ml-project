@@ -1,0 +1,11 @@
+step,decision,before,remaining,removed,card_positive_rate
+Raw rows,audit; positive rate denominator is eligible card trips only,199999,199999,0,0.5609772533281421
+Exact duplicates,drop duplicate rows,199999,199999,0,0.5609772533281421
+Observable card tips,"drop cash, flex, no-charge, disputes, unknown and voided",199999,133571,66428,0.5609772533281421
+Positive fare,"drop zero, negative, missing or infinite fares",133571,133558,13,0.5609772533281421
+Valid tip,"drop negative, missing or infinite tips",133558,133558,0,0.5609772533281421
+Nonnegative charges,drop negative or infinite fees; missing fees imputed in May pipeline,133558,133558,0,0.5609772533281421
+Plausible duration,"drop missing, <30 seconds or >4 hours",133558,130303,3255,0.5615680375739622
+Plausible distance,"drop missing, <0.01 or >100 miles",130303,129961,342,0.5616454167019337
+Plausible average speed,drop >100 mph,129961,129956,5,0.5616670257625658
+Retain flagged cases,"flag unknown zones, nonstandard rates and unknown passengers",129956,129956,0,0.5616670257625658

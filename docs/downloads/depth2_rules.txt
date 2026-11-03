@@ -1,0 +1,12 @@
+Numeric split thresholds are in May-standardized units. One-hot splits use 0/1.
+
+|--- numeric__fare_amount <= -0.10
+|   |--- numeric__congestion_surcharge <= -1.34
+|   |   |--- class: 0
+|   |--- numeric__congestion_surcharge >  -1.34
+|   |   |--- class: 1
+|--- numeric__fare_amount >  -0.10
+|   |--- numeric__extra <= -0.54
+|   |   |--- class: 0
+|   |--- numeric__extra >  -0.54
+|   |   |--- class: 0
