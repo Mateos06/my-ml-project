@@ -1,0 +1,16 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+.ipynb_checkpoints/
+data/raw/
+data/processed/
+artifacts/
+site/
+dist/
+.env
+.DS_Store
+.openai/local/
+showcase/
+*.tar.gz

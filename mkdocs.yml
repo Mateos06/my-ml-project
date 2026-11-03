@@ -1,0 +1,50 @@
+site_name: The tipping point
+site_description: A measured study of generous tips in New York yellow taxis, May–July 2026.
+site_author: Team D
+docs_dir: docs
+site_dir: dist
+theme:
+  name: material
+  language: en
+  font: false
+  logo: assets/mark.svg
+  favicon: assets/mark.svg
+  palette:
+    scheme: default
+    primary: custom
+    accent: custom
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - content.code.copy
+nav:
+  The study: index.md
+  Method:
+    - Problem & decisions: problem.md
+    - Data & cleaning: data.md
+    - Features & models: features.md
+  Results:
+    - Evaluation: evaluation.md
+    - Model card: model-card.md
+  Reproduce:
+    - Run the project: reproduce.md
+    - Requirements: requirements.md
+    - Sources: sources.md
+  Defend:
+    - Fifteen-minute presentation: presentation.md
+    - Peer review: peer-review.md
+plugins:
+  - search
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - pymdownx.details
+  - pymdownx.superfences
+extra_css:
+  - stylesheets/extra.css
+extra_javascript:
+  - javascripts/explorer.js
+copyright: 'Team D · Evidence before promises · NYC yellow taxi study'
