@@ -12,6 +12,7 @@ import numpy as np
 import pandas as pd
 import sklearn
 from sklearn.metrics import average_precision_score
+from sklearn.tree import export_text
 
 from .config import (ARTIFACTS, FEATURE_GROUPS, FALSE_NEGATIVE_COST, FALSE_POSITIVE_COST,
                      MIN_AP_GAIN, RAW, REPORTS, ROOT, SEED, TRIPS)
@@ -128,7 +129,12 @@ def develop() -> dict:
     tree = models[name].named_steps["model"]
     interpretation = {"family": type(tree).__name__}
     if hasattr(tree, "get_depth"):
-        interpretation.update(depth=tree.get_depth(), leaves=tree.get_n_leaves())
+        interpretation.update(depth=int(tree.get_depth()), leaves=int(tree.get_n_leaves()))
+    depth2_pipeline = models["tree_depth_2"]
+    feature_names = list(depth2_pipeline.named_steps["preprocess"].get_feature_names_out())
+    (REPORTS / "depth2_rules.txt").write_text(
+        "Numeric split thresholds are in May-standardized units. One-hot splits use 0/1.\n\n"
+        + export_text(depth2_pipeline.named_steps["model"], feature_names=feature_names), encoding="utf-8")
     selection = {
         "created_utc": datetime.now(timezone.utc).isoformat(), "seed": SEED,
         "selected_model": name, "feature_groups": groups, "threshold": threshold,

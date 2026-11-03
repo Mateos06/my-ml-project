@@ -50,6 +50,7 @@ def build_docs():
         shutil.copy2(path, DOCS / "assets" / "figures" / path.name)
     for path in [*REPORTS.glob("*.csv"), *(REPORTS / "tables").glob("*.csv"), *REPORTS.glob("*.json")]:
         shutil.copy2(path, downloads / path.name)
+    shutil.copy2(REPORTS / "depth2_rules.txt", downloads / "depth2_rules.txt")
     for path in (ROOT / "notebooks").glob("*.ipynb"):
         shutil.copy2(path, downloads / path.name)
     costs = read_table("validation_thresholds.csv")
@@ -192,6 +193,14 @@ The May-derived rule selects fare band **{selection['fare_rule']['band']}**. A m
 **Selected: {selection['selected_model']}**, using {', '.join(selection['feature_groups'])}. Ranking uses June AP; the operating threshold is a separate cost decision. June AP is a development score after multiple choices, not an unbiased estimate of future performance.
 
 [Download the feature ledger](downloads/feature_comparison.csv) · [Download the complete June table](downloads/validation_metrics.csv)
+
+## Read the two-level tree
+
+```text
+{(REPORTS / 'depth2_rules.txt').read_text(encoding='utf-8')}
+```
+
+The numeric thresholds shown here are standardized by the May-fitted scaler. They are not raw dollar amounts. The root and its immediate child splits are the two decision levels.
 
 ## Leakage tests
 

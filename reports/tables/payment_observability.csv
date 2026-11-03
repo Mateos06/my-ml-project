@@ -1,0 +1,6 @@
+payment_type,trips,valid_fare_trips,recorded_nonzero_tip_rate,recorded_25pct_rate,interpretation
+0,46601,46539,0.0933840434904059,0.0284492576118954,not an observable card-tip target
+1,133571,133558,0.9018628610790818,0.5609772533281421,observable target
+2,18149,17934,0.0,0.0,not an observable card-tip target
+3,570,473,0.0,0.0,not an observable card-tip target
+4,1108,663,0.0,0.0,not an observable card-tip target

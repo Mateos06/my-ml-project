@@ -22,6 +22,9 @@ class CategoryStrings(TransformerMixin, BaseEstimator):
     def transform(self, X):
         return pd.DataFrame(X).astype("string").fillna("Unknown").astype(str).to_numpy()
 
+    def get_feature_names_out(self, input_features=None):
+        return np.asarray(input_features, dtype=object)
+
 
 def feature_columns(groups: list[str]) -> tuple[list[str], list[str]]:
     numeric, categorical = [], []
