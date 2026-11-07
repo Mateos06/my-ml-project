@@ -1,0 +1,27 @@
+{
+  "docs\\assets\\images\\nyc-taxis-960.jpg": {
+    "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d3/Yellow_Cabs_in_New_York.JPG/960px-Yellow_Cabs_in_New_York.JPG",
+    "sha256": "14548af0cb6331920a1f5dbac385657cbb120579fb5e614051d4d10fb4847ced",
+    "bytes": 199734
+  },
+  "docs\\assets\\images\\nyc-taxis-1280.jpg": {
+    "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d3/Yellow_Cabs_in_New_York.JPG/1280px-Yellow_Cabs_in_New_York.JPG",
+    "sha256": "8e77bc3121a1f6aac49fe7424955a32dce90e640913b6b17bed2a5951e1bc3b1",
+    "bytes": 307625
+  },
+  "docs\\assets\\vendor\\echarts.min.js": {
+    "source": "https://registry.npmjs.org/echarts/-/echarts-6.1.0.tgz#package/dist/echarts.min.js",
+    "sha256": "b66b25aeb4df84e33199dc21694014d336d222cbd9deb0e5a7c14bd6aa0d0fd0",
+    "bytes": 1121883
+  },
+  "docs\\assets\\vendor\\ECHARTS-LICENSE.txt": {
+    "source": "https://registry.npmjs.org/echarts/-/echarts-6.1.0.tgz#package/LICENSE",
+    "sha256": "634293835b43a6dd2094fa39182a3d9a6b9ca43b7fdb9ac354e8037af2a3093a",
+    "bytes": 11990
+  },
+  "docs\\assets\\vendor\\ECHARTS-NOTICE.txt": {
+    "source": "https://registry.npmjs.org/echarts/-/echarts-6.1.0.tgz#package/NOTICE",
+    "sha256": "d491d358344f842685c1b1585970999db65fe30ecf7ef3867af8814f4016c016",
+    "bytes": 168
+  }
+}

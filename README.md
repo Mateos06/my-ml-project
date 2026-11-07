@@ -18,15 +18,40 @@ python -m pytest
 python -m taxi_tip.cli develop
 python -m taxi_tip.cli final --bootstrap 500
 python -m taxi_tip.cli docs
+python scripts/export_lab.py
 python -m mkdocs build --strict
 python -m mkdocs serve
 ```
 
 On macOS/Linux activate with `source .venv/bin/activate`. The lock file records the tested Python 3.11 environment; its Windows terminal dependency has a platform marker. Alternatively install the compatible dependency ranges with `python -m pip install -e ".[dev,docs]"`.
 
-Open <http://127.0.0.1:8000>. The static website is generated into `dist/`. Downloading the four files needs internet; subsequent analysis runs locally. Data, fitted models, environment files and row-level predictions are excluded from Git. The downloaded parquet and zone lookup are SHA-256 fingerprinted in the frozen result manifest.
+Open <http://127.0.0.1:8000>. The static website is generated into `dist/`. Downloading the four files needs internet; subsequent analysis runs locally. Raw data, Python model binaries, environment files and full row-level prediction files are excluded from Git. The website includes the frozen tree's inference parameters, aggregate evidence and two binned error examples. The downloaded parquet and zone lookup are SHA-256 fingerprinted in the frozen result manifest.
 
 The equivalent teaching route is `python -m jupyterlab`, then run `notebooks/01-frame.ipynb` through `04-evaluate.ipynb` in order. The notebooks import `src/taxi_tip`; they do not duplicate its implementation. Notebook 04 reuses a completed July result. To execute all notebooks automatically after the pipeline, use `python scripts/execute_notebooks.py`.
+
+## Preview or update the visual lab
+
+The repository includes the browser-ready data, model parameters, photographs and chart library. After installing the Python dependencies, preview the existing site without downloading or rerunning the study:
+
+```bash
+python -m mkdocs build --strict
+python -m mkdocs serve
+```
+
+The homepage presents interactive charts, the real taxi-zone map, model comparisons and a browser predictor. The full academic reports remain accessible from the documentation links. `overrides/lab.html` and the MkDocs hook keep the visual homepage separate from regenerated report Markdown.
+
+After a full study reproduction, refresh browser exports and verify the JavaScript predictor:
+
+```bash
+python scripts/export_lab.py
+node scripts/check_browser_model.cjs
+python -m mkdocs build --strict
+python scripts/check_site.py
+```
+
+Node.js is required only for the JavaScript check. The check compares the browser implementation with scikit-learn on 1,000 May trips; the recorded export matched with zero probability error. The exporter reads May aggregates and cached evaluation predictions, without refitting or rescoring July. Browser form inputs remain on the visitor's device.
+
+The locally vendored photography and ECharts package are already included. To restore those pinned downloads, run `python scripts/fetch_lab_assets.py`. See `docs/lab-guide.md` for licenses, data scope, map coordinates and inference details.
 
 ## What is in the repository
 
@@ -39,6 +64,8 @@ The equivalent teaching route is `python -m jupyterlab`, then run `notebooks/01-
 | `reports/` | Measured aggregate tables, figures and frozen provenance |
 | `MODEL_CARD.md` | Results, limits, intended use and failure slices |
 | `docs/`, `mkdocs.yml` | Showcase website with results, reproducibility and presentation |
+| `overrides/lab.html`, `docs/javascripts/`, `docs/stylesheets/` | Interactive visual presentation and browser model interpreter |
+| `scripts/export_lab.py`, `scripts/check_browser_model.cjs` | Frozen-model/data export and cross-language inference check |
 | `tests/` | Leakage, population, temporal split and holdout-guard checks |
 | `presentation/DEFEND.md` | Fifteen-minute defense with speaker prompts |
 | `PEER_REVIEW.md` | Honest pending review record and procedure |
@@ -65,7 +92,7 @@ In GitHub Settings → Pages choose **GitHub Actions**, then run **Deploy MkDocs
 
 ## Academic responsibility and AI use
 
-OpenAI Codex assisted with the initial implementation, tests, documentation, figures, notebooks and presentation structure in this repository. Every team member must review the work, understand each line, verify the assumptions and be able to defend all stages. Do not claim these files were written manually or that the assistant's implementation is a substitute for understanding.
+OpenAI Codex assisted with the initial implementation, tests, documentation, figures, notebooks, presentation structure and interactive website redesign in this repository. Every team member must review the work, understand each line, verify the assumptions and be able to defend all stages. Do not claim these files were written manually or that the assistant's implementation is a substitute for understanding.
 
 The peer review is **pending** until the Team A repository is supplied and actually reviewed. Team names, instructor access, submission deadline and the classroom defense remain human responsibilities. Commit history records actual work; it does not simulate four weeks of development.
 

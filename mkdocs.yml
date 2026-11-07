@@ -5,12 +5,13 @@ docs_dir: docs
 site_dir: dist
 theme:
   name: material
+  custom_dir: overrides
   language: en
   font: false
   logo: assets/mark.svg
   favicon: assets/mark.svg
   palette:
-    scheme: default
+    scheme: slate
     primary: custom
     accent: custom
   features:
@@ -31,11 +32,14 @@ nav:
     - Run the project: reproduce.md
     - Requirements: requirements.md
     - Sources: sources.md
+    - Visual lab & credits: lab-guide.md
   - Defend:
     - Fifteen-minute presentation: presentation.md
     - Peer review: peer-review.md
 plugins:
   - search
+hooks:
+  - scripts/mkdocs_hooks.py
 markdown_extensions:
   - admonition
   - attr_list
@@ -45,6 +49,8 @@ markdown_extensions:
   - pymdownx.superfences
 extra_css:
   - stylesheets/extra.css
+  - stylesheets/lab.css
+  - stylesheets/lab-motion.css
 extra_javascript:
   - javascripts/explorer.js
 copyright: 'Team D · Evidence before promises · NYC yellow taxi study'
