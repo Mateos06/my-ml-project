@@ -1,99 +1,146 @@
-# The tipping point
+# 🚕 The Tipping Point
 
-**NYC yellow taxis · Team D · May–July 2026**
+### Can a taxi trip help predict a generous tip?
 
-A reproducible classification study of recorded card tips of at least 25% of the meter fare. The project goes from the instructor's fixed raw sample to a leakage-aware baseline, a locked July evaluation, and an evidence-driven MkDocs website.
+**600,000 NYC yellow-taxi records · May–July 2026 · Team D**
 
-## Start from a fresh clone
+A reproducible machine-learning study that turns raw trip records into a validated baseline and an interactive visual story. We predict whether an eligible **card-paid trip receives a recorded tip of at least 25% of its meter fare**, at payment time, before the tip is entered.
 
-Requires Python 3.11 or 3.12 and Git. Run these commands from the repository root:
+**[↗ Explore the live website](https://nyc-taxi-tip-lab-mateo.violetnashi2.chatgpt.site)** · [Try the model](https://nyc-taxi-tip-lab-mateo.violetnashi2.chatgpt.site/#predictor) · [See the results](https://nyc-taxi-tip-lab-mateo.violetnashi2.chatgpt.site/#results)
+
+![Animated study workflow: May trains on 129,956 eligible trips; June selects on 123,162; July tests the frozen model on 119,811. July average precision is 0.747 versus a 0.585 baseline.](docs/assets/readme/study-flow.gif)
+
+*Follow the taxi from learning to validation to the final test. [View the still diagram](docs/assets/readme/study-flow.png) if you prefer no animation.*
+
+## The result in 30 seconds
+
+| July result | What it means |
+| --- | --- |
+| **0.747 average precision** | Better ranking than the constant-score baseline, **0.585**. AP is not accuracy. |
+| **71.4% precision** | About 7 in 10 trips flagged as generous actually met the target. |
+| **95.0% recall** | The model found about 95 in 100 trips that met the target. |
+| **119,811 eligible trips** | The population behind the final test results. |
+
+The selected **depth-eight decision tree** uses fare, geography and pre-tip fees. Its **0.32 decision threshold** was chosen on June and frozen before July. July AP has a **95% trip-bootstrap interval of 0.744–0.751**.
+
+Three takeaways: trip context contains useful signal; cash tips are unobserved rather than zero generosity; even a useful model makes mistakes. This is an educational study of recorded card tips, not a judgment about passengers or a validated service-allocation tool.
+
+## Explore the visual lab
+
+- **Follow the evidence:** animated cleaning funnel, tip distributions and trip-pattern charts.
+- **Explore New York:** real TLC taxi-zone boundaries, borough filters and sample-size context.
+- **Look inside the models:** feature decisions, an interactive depth-two tree and model comparisons.
+- **Test a trip:** run the actual frozen tree in your browser, with no trip inputs sent to a server.
+
+Built with **Python · pandas · scikit-learn · MkDocs Material · Apache ECharts · JavaScript**. The site includes parallax, scroll animations, mobile layouts, reduced-motion support and accessible chart tables.
+
+## Run the website locally
+
+Requires **Python 3.11 or 3.12**; the dependency lock was tested on Python 3.11. From the repository root:
+
+```bash
+python -m venv .venv
+```
+
+Activate the environment:
 
 ```powershell
-python -m venv .venv
+# Windows PowerShell
 .\.venv\Scripts\Activate.ps1
+```
+
+```bash
+# macOS / Linux
+source .venv/bin/activate
+```
+
+Then install and preview:
+
+```bash
 python -m pip install -r requirements-lock.txt
 python -m pip install --no-deps -e .
+python -m mkdocs serve
+```
+
+Open [localhost:8000](http://127.0.0.1:8000). Committed reports, browser model parameters and visual assets are included, so **previewing the site needs no raw-data download or model training**. Build static files into `dist/` with `python -m mkdocs build --strict`.
+
+## How the study works
+
+| Stage | Eligible card trips | Responsibility |
+| --- | ---: | --- |
+| **May → train** | 129,956 | Fit preprocessing and candidate models. |
+| **June → select** | 123,162 | Choose feature groups, model and decision threshold. |
+| **July → test once** | 119,811 | Evaluate the frozen choice and report uncertainty. |
+
+The instructor sample contains 600,000 raw rows. Splits use recorded pickup timestamps; two rows fall in April and are excluded. All learned transformations fit on May only. Tip amount defines the target; **tip amount and total charge cannot enter the predictors**.
+
+<details markdown="1">
+<summary><strong>Reproduce the complete analysis</strong></summary>
+
+After installing the environment above, use a fresh checkout with no existing study artifacts:
+
+```bash
 python data/get_data.py
 python -m pytest
 python -m taxi_tip.cli develop
 python -m taxi_tip.cli final --bootstrap 500
+python scripts/execute_notebooks.py
 python -m taxi_tip.cli docs
-python scripts/export_lab.py
-python -m mkdocs build --strict
-python -m mkdocs serve
-```
-
-On macOS/Linux activate with `source .venv/bin/activate`. The lock file records the tested Python 3.11 environment; its Windows terminal dependency has a platform marker. Alternatively install the compatible dependency ranges with `python -m pip install -e ".[dev,docs]"`.
-
-Open <http://127.0.0.1:8000>. The static website is generated into `dist/`. Downloading the four files needs internet; subsequent analysis runs locally. Raw data, Python model binaries, environment files and full row-level prediction files are excluded from Git. The website includes the frozen tree's inference parameters, aggregate evidence and two binned error examples. The downloaded parquet and zone lookup are SHA-256 fingerprinted in the frozen result manifest.
-
-The equivalent teaching route is `python -m jupyterlab`, then run `notebooks/01-frame.ipynb` through `04-evaluate.ipynb` in order. The notebooks import `src/taxi_tip`; they do not duplicate its implementation. Notebook 04 reuses a completed July result. To execute all notebooks automatically after the pipeline, use `python scripts/execute_notebooks.py`.
-
-## Preview or update the visual lab
-
-The repository includes the browser-ready data, model parameters, photographs and chart library. After installing the Python dependencies, preview the existing site without downloading or rerunning the study:
-
-```bash
-python -m mkdocs build --strict
-python -m mkdocs serve
-```
-
-The homepage presents interactive charts, the real taxi-zone map, model comparisons and a browser predictor. The full academic reports remain accessible from the documentation links. `overrides/lab.html` and the MkDocs hook keep the visual homepage separate from regenerated report Markdown.
-
-After a full study reproduction, refresh browser exports and verify the JavaScript predictor:
-
-```bash
 python scripts/export_lab.py
 node scripts/check_browser_model.cjs
 python -m mkdocs build --strict
 python scripts/check_site.py
 ```
 
-Node.js is required only for the JavaScript check. The check compares the browser implementation with scikit-learn on 1,000 May trips; the recorded export matched with zero probability error. The exporter reads May aggregates and cached evaluation predictions, without refitting or rescoring July. Browser form inputs remain on the visitor's device.
+Downloading the four instructor assets requires internet. Node.js is needed only for the browser/Python parity check. For the notebook route, download the data first, launch `python -m jupyterlab` and work through notebooks 01–04 in order; they import the shared Python package. Then run the documentation, export, parity and build commands above to refresh the website.
 
-The locally vendored photography and ECharts package are already included. To restore those pinned downloads, run `python scripts/fetch_lab_assets.py`. See `docs/lab-guide.md` for licenses, data scope, map coordinates and inference details.
+`develop` freezes source, model and data fingerprints. `final` creates `artifacts/july.lock`, scores July once and caches predictions. Subsequent `final` calls reuse the saved result; `develop` refuses after the lock exists. **Do not delete the lock to tune against July.** A fresh reproduction replicates the method; it does not create a new unseen test set.
 
-## What is in the repository
+If reporting stops after predictions were saved, rerun `final` to recover from the cache. If it stops before that point, inspect and document the failure and any previous July access before recovery.
 
-| Path | Purpose |
-| --- | --- |
-| `PROBLEM.md` | Target, population, prediction moment, costs and baseline contract |
-| `data/get_data.py` | Instructor release downloader, safe extraction and checksums |
-| `src/taxi_tip/` | Cleaning, feature pipelines, comparisons, evaluation and reports |
-| `notebooks/01–04` | Four narrated stages with executable evidence |
-| `reports/` | Measured aggregate tables, figures and frozen provenance |
-| `MODEL_CARD.md` | Results, limits, intended use and failure slices |
-| `docs/`, `mkdocs.yml` | Showcase website with results, reproducibility and presentation |
-| `overrides/lab.html`, `docs/javascripts/`, `docs/stylesheets/` | Interactive visual presentation and browser model interpreter |
-| `scripts/export_lab.py`, `scripts/check_browser_model.cjs` | Frozen-model/data export and cross-language inference check |
-| `tests/` | Leakage, population, temporal split and holdout-guard checks |
-| `presentation/DEFEND.md` | Fifteen-minute defense with speaker prompts |
-| `PEER_REVIEW.md` | Honest pending review record and procedure |
-| `.github/workflows/` | Automated tests and manual GitHub Pages deployment |
+Raw data, Python model binaries and row-level prediction caches stay outside Git. The website contains exported inference parameters, aggregates and two binned error examples. Browser exports use saved evaluation predictions without refitting or rescoring July.
 
-## July is a one-time test
+</details>
 
-`develop` reads only May and June and freezes hashes of the model, source, data and zone lookup. `final` verifies them, creates an exclusive `artifacts/july.lock`, scores July once, and caches the predictions before generating intervals. Repeat `final` calls return the saved result; `develop` refuses after the lock exists. There is no force flag.
+## Repository guide
 
-If report generation is interrupted after predictions have been saved, rerun `final` to finish from the cache. If the process stopped before saving predictions, inspect the lock and failure, document any recovery, and acknowledge any prior July access. Do not delete the lock to tune against July. A fresh clone can reproduce the frozen method; that is replication, not a new holdout. Committed reports are evidence, and do not substitute for a local run's artifacts.
+```text
+data/get_data.py          Download the instructor's fixed sample
+src/taxi_tip/            Cleaning, features, training, evaluation and reporting
+notebooks/              Four executable stages: frame → clean → features → evaluate
+reports/                Measured results, figures and frozen provenance
+docs/                   MkDocs pages, browser code and visual assets
+overrides/lab.html      Interactive homepage
+scripts/                Exports, notebook execution and verification
+tests/                  Leakage, split and holdout-guard checks
+```
 
-The trip-level paired bootstrap uses 500 resamples and fixed predictions. Its intervals omit model-selection uncertainty and may understate uncertainty from correlated trips. The study covers three months, not a full year.
+Start with the [problem and prediction contract](https://nyc-taxi-tip-lab-mateo.violetnashi2.chatgpt.site/problem/), [model card](https://nyc-taxi-tip-lab-mateo.violetnashi2.chatgpt.site/model-card/) or [15-minute defense](https://nyc-taxi-tip-lab-mateo.violetnashi2.chatgpt.site/presentation/). Their repository sources are `PROBLEM.md`, `MODEL_CARD.md` and `presentation/DEFEND.md`.
 
-## GitHub and the website
+## Verification and limits
 
-This directory is a Git repository. To connect it to an empty GitHub repository that you own:
+**Recorded checks:** 11 tests passed, the strict MkDocs build passed, and the JavaScript model matched scikit-learn on **1,000 May trips with zero probability difference**. Desktop and mobile interactions were checked. See `VALIDATION.md` for the verification record; these are completed local checks, not a claim about an unrun CI workflow.
+
+The study covers eligible card payments in three months. Cash tips and human context are missing. The 500-resample trip bootstrap conditions on the fitted model, omits selection uncertainty and may understate uncertainty for correlated trips. June was reused for several choices. Read the [full evaluation](https://nyc-taxi-tip-lab-mateo.violetnashi2.chatgpt.site/evaluation/) before interpreting the headline numbers.
+
+<details markdown="1">
+<summary><strong>Publishing and visual maintenance</strong></summary>
+
+The live showcase uses the URL above. The repository also includes a manual GitHub Pages workflow. To use your own empty GitHub repository:
 
 ```bash
 git remote add github https://github.com/YOUR-ACCOUNT/YOUR-REPOSITORY.git
 git push -u github HEAD:main
 ```
 
-In GitHub Settings → Pages choose **GitHub Actions**, then run **Deploy MkDocs** under Actions. The deployment workflow builds the committed aggregate results; it never reopens July. For further commits use your chosen remote and branch. Do not upload `data/raw/` or `artifacts/`.
+In **Settings → Pages**, select **GitHub Actions**, then run **Deploy MkDocs**. It builds committed results without reopening July. Do not upload `data/raw/` or `artifacts/`.
 
-## Academic responsibility and AI use
+To rebuild the README animation, run `python scripts/render_readme_animation.py` (Pillow required). To restore pinned website photographs and ECharts assets, run `python scripts/fetch_lab_assets.py`. The custom MkDocs hook preserves the visual homepage when reports are regenerated.
 
-OpenAI Codex assisted with the initial implementation, tests, documentation, figures, notebooks, presentation structure and interactive website redesign in this repository. Every team member must review the work, understand each line, verify the assumptions and be able to defend all stages. Do not claim these files were written manually or that the assistant's implementation is a substitute for understanding.
+</details>
 
-The peer review is **pending** until the Team A repository is supplied and actually reviewed. Team names, instructor access, submission deadline and the classroom defense remain human responsibilities. Commit history records actual work; it does not simulate four weeks of development.
+## Sources, credits and academic responsibility
 
-Data source: the instructor's [data-v2 release](https://github.com/evisp/ml-course-labs/releases/tag/data-v2), based on [NYC TLC trip records](https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page). See the website's sources and requirements pages for traceability.
+Data comes from the instructor's [data-v2 release](https://github.com/evisp/ml-course-labs/releases/tag/data-v2), based on [NYC TLC trip records](https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page). [Visual credits and licenses](https://nyc-taxi-tip-lab-mateo.violetnashi2.chatgpt.site/lab-guide/) cover the photography and chart library. The README animation is a schematic of the study, not a recorded taxi route.
+
+OpenAI Codex assisted with code, tests, notebooks, analysis presentation, documentation and website design. Team members must review, understand and defend the work. Peer review, classroom delivery and instructor submission remain pending human responsibilities; the repository does not claim those activities are complete.
