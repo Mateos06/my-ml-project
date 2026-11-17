@@ -108,6 +108,7 @@ my-ml-project/
 ├── VALIDATION.md             # Recorded technical verification
 ├── PEER_REVIEW.md            # Peer-review planning/status
 ├── data/
+│   ├── dataset/            # Original instructor dataset, source assets, and checksums
 │   └── get_data.py          # Download instructor-provided assets
 ├── notebooks/
 │   ├── 01-frame.ipynb       # Frame prediction question and target
@@ -123,7 +124,7 @@ my-ml-project/
 └── pyproject.toml
 ```
 
-Raw data, trained Python model binaries, and row-level prediction caches are **not** committed to Git. They are created locally when reproducing the full study.
+The original instructor source files are included in [`data/dataset/`](data/dataset/README.md), with SHA-256 checksums. Working copies in `data/raw/`, trained Python model binaries, and row-level prediction caches are **not** committed to Git. They are created locally when reproducing the full study.
 
 ## 7. Installation and usage
 

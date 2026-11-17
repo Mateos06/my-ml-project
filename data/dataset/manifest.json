@@ -1,0 +1,9 @@
+{
+  "source": "https://github.com/evisp/ml-course-labs/releases/download/data-v2/",
+  "files": {
+    "yellow_tripdata_2026_sample.parquet": "9f6fadc8308f30f194e9980a170aceadb9e2114e50c1d5d0b574ab82a07c5af0",
+    "taxi_zone_lookup.csv": "1a99e105092230f8620f301edcca7f80d3080642ff404d28ed957d3fa222c8ed",
+    "taxi_zones.zip": "f6d711917bb4340f8f644d5366c51665489eb2d426dd1a4a55677721ae5adf17",
+    "data_dictionary_trip_records_yellow.pdf": "b9e9f0ecfa6bd9cc847283379173fd764fe1ab76d2fa143329f541cb1f479993"
+  }
+}

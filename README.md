@@ -98,13 +98,14 @@ Downloading the four instructor assets requires internet. Node.js is needed only
 
 If reporting stops after predictions were saved, rerun `final` to recover from the cache. If it stops before that point, inspect and document the failure and any previous July access before recovery.
 
-Raw data, Python model binaries and row-level prediction caches stay outside Git. The website contains exported inference parameters, aggregates and two binned error examples. Browser exports use saved evaluation predictions without refitting or rescoring July.
+The original source files are included in [`data/dataset/`](data/dataset/README.md), with SHA-256 checksums. Working copies in `data/raw/`, Python model binaries and row-level prediction caches stay outside Git. The website contains exported inference parameters, aggregates and two binned error examples. Browser exports use saved evaluation predictions without refitting or rescoring July.
 
 </details>
 
 ## Repository guide
 
 ```text
+data/dataset/            Original instructor dataset and source assets with checksums
 data/get_data.py          Download the instructor's fixed sample
 src/taxi_tip/            Cleaning, features, training, evaluation and reporting
 notebooks/              Four executable stages: frame → clean → features → evaluate

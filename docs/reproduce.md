@@ -25,7 +25,7 @@ python -m mkdocs serve
 
 On macOS/Linux activate with `source .venv/bin/activate`. The lock file records the tested Python 3.11 environment; its Windows terminal dependency has a platform marker. Alternatively install the compatible dependency ranges with `python -m pip install -e ".[dev,docs]"`.
 
-Open <http://127.0.0.1:8000>. The static website is generated into `dist/`. Downloading the four files needs internet; subsequent analysis runs locally. Raw data, Python model binaries, environment files and full row-level prediction files are excluded from Git. The website includes the frozen tree's inference parameters, aggregate evidence and two binned error examples. The downloaded parquet and zone lookup are SHA-256 fingerprinted in the frozen result manifest.
+Open <http://127.0.0.1:8000>. The static website is generated into `dist/`. The downloader needs internet; subsequent analysis runs locally. Original source files and their checksums are included in `data/dataset/`. Working copies in `data/raw/`, Python model binaries, environment files and full row-level prediction files are excluded from Git. The website includes the frozen tree's inference parameters, aggregate evidence and two binned error examples. The downloaded parquet and zone lookup are SHA-256 fingerprinted in the frozen result manifest.
 
 The equivalent teaching route is `python -m jupyterlab`, then run `notebooks/01-frame.ipynb` through `04-evaluate.ipynb` in order. The notebooks import `src/taxi_tip`; they do not duplicate its implementation. Notebook 04 reuses a completed July result. To execute all notebooks automatically after the pipeline, use `python scripts/execute_notebooks.py`.
 
@@ -58,6 +58,7 @@ The locally vendored photography and ECharts package are already included. To re
 | Path | Purpose |
 | --- | --- |
 | `PROBLEM.md` | Target, population, prediction moment, costs and baseline contract |
+| `data/dataset/` | Original instructor dataset, source assets and SHA-256 checksums |
 | `data/get_data.py` | Instructor release downloader, safe extraction and checksums |
 | `src/taxi_tip/` | Cleaning, feature pipelines, comparisons, evaluation and reports |
 | `notebooks/01–04` | Four narrated stages with executable evidence |
