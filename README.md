@@ -104,7 +104,10 @@ The original source files are included in [`data/dataset/`](data/dataset/README.
 
 ## Repository guide
 
+The complete research paper is available as a [PDF](paper/the-tipping-point.pdf), an [editable Word document](paper/the-tipping-point.docx), and [Markdown](paper/the-tipping-point.md). It includes the study methods, saved results, limitations, references, and requirement traceability.
+
 ```text
+paper/                  Research paper, editable manuscript and publication figures
 data/dataset/            Original instructor dataset and source assets with checksums
 data/get_data.py          Download the instructor's fixed sample
 src/taxi_tip/            Cleaning, features, training, evaluation and reporting

@@ -1,0 +1,5 @@
+# Separate document-rendering dependencies; no changes to the ML environment.
+python-docx==1.2.0
+reportlab==5.1.0
+markdown-it-py==4.3.0
+matplotlib==3.11.2
